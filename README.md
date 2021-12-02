@@ -11,6 +11,8 @@ L'esercizio consiste nello sviluppare le API REST di un'ipotetica piattaforma di
 
 La piattaforma permette la gestione degli utenti e la gestione dei post.
 
+Il file [swagger.yml](swagger.yml) contiene la documentazione delle API.
+
 Oltre alle API è necessario realizzare un comando da CLI per la creazione degli utenti che rispetti questa signature:
 
 ```
@@ -23,17 +25,19 @@ E' necessario includere una configurazione di `Docker` o `Docker Compose` e le i
 per eseguire i comandi da cli. L'esercizio verrà lanciato su una macchina vergine dove è presente solo Docker quindi è
 molto importante che la configurazione di Docker includa tutte le dipendenze necessarie (Webserver, DB, ecc)
 
+E' consentito solo l'utilizzo del DB MySQL.
+
 E' permesso l'utilizzo di microframework (`Slim`, `Mezzio`, ...) è di tutte le librerie o componenti di cui si ha
 bisogno ma non è consentito l'utilizzo di framework come `Symfony`, `Laravel`, `Yii`, ecc
 
 Per la gestione delle migrazioni si consiglia l'utilizzo della libreria `Phinx`
 
-Nel caso in cui non si riuscisse a terminare tutto l'esercizio la cosa che viene presa piu in considerazione è la
+Nel caso in cui non si riuscisse a terminare tutto l'esercizio la cosa che verrà presa piu in considerazione è la
 qualità del codice, non la quantità:
 
-- aderenza agli standard PSR
-- come viene strutturato
+- organizzazione del codice (Screaming Architecture)
 - utilizzo dell'architettura esagonale
+- aderenza agli standard PSR
 - corretta divisione tra dominio e componenti infrastrutturali
 
 ---
