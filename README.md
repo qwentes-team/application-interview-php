@@ -27,8 +27,8 @@ molto importante che la configurazione di Docker includa tutte le dipendenze nec
 
 E' consentito solo l'utilizzo del DB MySQL.
 
-E' permesso l'utilizzo di microframework (`Slim`, `Mezzio`, ...) è di tutte le librerie o componenti di cui si ha
-bisogno ma non è consentito l'utilizzo di framework come `Symfony`, `Laravel`, `Yii`, ecc
+E' fortemente consigliato l'utilizzo di microframework (`Slim`, `Mezzio`, ...) è di tutte le librerie o componenti di
+cui si ha bisogno e fortemente sconsigliato l'utilizzo di framework come `Symfony`, `Laravel`, `Yii`, ecc
 
 Per la gestione delle migrazioni si consiglia l'utilizzo della libreria `Phinx`
 
