@@ -1,63 +1,57 @@
-# Qwentes Application PHP
+# Qwentes Backend Application
 
 Il tempo massimo per la consegna è di 10 giorni dalla ricezione delle specifiche via email.
 
 Lo sviluppo può essere fatto su GitHub, GitLab o qualsiasi altro portale. Una volta terminato inviare il link della repo
 via email (la stessa email che ha inviato queste specifiche).
 
+Il candidato può scegliere se eseguire l'esercizio in PHP in JS.
+
 ## Premessa
 
 L'esercizio consiste nello sviluppare le API REST di un'ipotetica piattaforma di content publishing.
 
-La piattaforma permette la gestione degli utenti e la gestione dei post.
+La piattaforma permette la gestione degli utenti, la gestione dei post e la gestione dei commenti.
 
 Il file [swagger.yml](swagger.yml) contiene la documentazione delle API.
 
-Oltre alle API è necessario realizzare un comando da CLI per la creazione degli utenti che rispetti questa signature:
-
-```
-> user:create <givenName> <familyName> <email> <password>
-```
-
-Per il comando da cli si consiglia l'utilizzo della libreria `Symfony Console`.
-
-E' necessario includere una configurazione di `Docker` o `Docker Compose` e le istruzioni per lanciare l'applicativo e
-per eseguire i comandi da cli. L'esercizio verrà lanciato su una macchina vergine dove è presente solo Docker quindi è
-molto importante che la configurazione di Docker includa tutte le dipendenze necessarie (Webserver, DB, ecc)
-
 E' consentito solo l'utilizzo del DB MySQL.
 
-E' fortemente consigliato l'utilizzo di microframework (`Slim`, `Mezzio`, ...) è di tutte le librerie o componenti di
-cui si ha bisogno e fortemente sconsigliato l'utilizzo di framework come `Symfony`, `Laravel`, `Yii`, ecc
-
-Per la gestione delle migrazioni si consiglia l'utilizzo della libreria `Phinx`
+E' preferibile l'utilizzo di microframework come Express, Fastify, Slim, Mezzio, ... rispetto a framework come NestJS,
+Laravel o Symfony.
 
 Nel caso in cui non si riuscisse a terminare tutto l'esercizio la cosa che verrà presa piu in considerazione è la
 qualità del codice, non la quantità:
 
 - organizzazione del codice (Screaming Architecture)
 - utilizzo dell'architettura esagonale
-- aderenza agli standard PSR
 - corretta divisione tra dominio e componenti infrastrutturali
 
 ---
 
-## API specs
+## Requisiti minimi
 
-### HTTP request headers
+Al minimo di tutto l'esercizio deve includere le 5 implementazioni elencate di seguito.
 
-Tutte le richieste devono includere almeno questi headers:
+### 1) Docker setup
 
-- `Content-Type: application/json`
-- `Accept: application/json`
-- `Authorization: Bearer <JWT ottenuto dopo l'autenticazione>` (questo deve essere incluso in tutte le richieste a parte
-  quella per l'autenticazione)
+Includere una configurazione di `Docker` o `Docker Compose` e le istruzioni per lanciare l'applicativo ed eseguire i
+comandi da cli. L'esercizio verrà lanciato su una macchina vergine dove è presente solo Docker quindi è
+molto importante che la configurazione di Docker includa tutte le dipendenze necessarie (Webserver, DB, ecc)
 
-In caso di assenza di uno o più di questi headers le API devono ritornare un errore.
+### 2) Migrazioni DB
 
-### Autenticazione
+Implementare migrazioni e fixtures per la gestione degli utenti.
 
-Per poter utilizzare le API è necessario ottenere un token di autenticazione (JWT) valido.
+### 3) Comando da CLI
+
+Realizzare un comando da CLI per la creazione degli utenti che rispetti questa signature:
+
+```
+> user:create <givenName> <familyName> <email> <password>
+```
+
+### 4) Autenticazione
 
 Il processo di autenticazione avviene invocando la rotta `POST /login` (l'unica non protetta da autenticazione) che
 verifica la bontà delle credenziali fornite e ritorna un JWT che contiene queste informazioni:
@@ -83,6 +77,46 @@ Payload:
   "iat": 1516239022 // timestamp con la creazione del token
 }
 ```
+
+Il JWT deve avere un lifetime di 60 minuti.
+
+### 5) CRUD User
+
+Implementare le API per la gestione degli utenti come documentato sullo swagger.
+
+I requisiti impongono che:
+- Non sono ammessi più utenti con la stessa email
+- La password dell'utente deve rispettare questi vincoli:
+  - lunghezza minima 6 caratteri
+  - deve contenere almeno 1 numero
+  - deve contenere almeno 1 carattere minuscolo
+  - deve contenere almeno 1 carattere maiuscolo
+  - deve contenere almeno 2 caratteri speciali tra questi: `,`, `.`, `:`, `;`, `-`, `_`, `$`, `%`, `&`, `(`, `)`, `=`
+  - non può contenere 2 caratteri identici consecutivi
+  - non può contenere la local-part dell'indirizzo email (la local-part è la stringa prima del carattere `@`)
+
+---
+
+## Nice to have
+
+Implementare la logica e le modifiche al DB necessarie per il CRUD + la ricerca dei posts.
+
+La ricerca google-like con il parametro `q` deve cercare sia nel `title` che nel `body` del post.
+
+---
+
+## API specs
+
+### HTTP request headers
+
+Tutte le richieste devono includere almeno questi headers:
+
+- `Content-Type: application/json`
+- `Accept: application/json`
+- `Authorization: Bearer <JWT ottenuto dopo l'autenticazione>` (questo deve essere incluso in tutte le richieste a parte
+  quella per l'autenticazione)
+
+In caso di assenza di uno o più di questi headers le API devono ritornare un errore.
 
 ### Query parameters
 
@@ -134,34 +168,3 @@ candidato è libero di procedere con l'implementazione che preferisce l'importan
 indicati di seguito.
 
 ---
-
-## Business requirements
-
-### Autenticazione
-
-- Il JWT di autenticazione ha un lifetime di 60 minuti.
-
-### Utenti
-
-- Non sono ammessi più utenti con la stessa email
-- La password dell'utente deve rispettare questi vincoli:
-    - lunghezza minima 6 caratteri
-    - deve contenere almeno 1 numero
-    - deve contenere almeno 1 carattere minuscolo
-    - deve contenere almeno 1 carattere maiuscolo
-    - deve contenere almeno 2 caratteri speciali tra questi: `,`, `.`, `:`, `;`, `-`, `_`, `$`, `%`, `&`, `(`, `)`, `=`
-    - non può contenere 2 caratteri identici consecutivi
-    - non può contenere la local-part dell'indirizzo email (la local-part è la stringa prima del carattere `@`)
-
-### Posts
-
-- Ad ogni post possono essere assegnati fino ad un massimo di 5 tags
-- Non possono esistere tags duplicati per un post
-- I tags devono rispettare questi vincoli:
-    - lunghezza minima 2 caratteri
-    - lunghezza massima 20 caratteri
-    - può contenere solo lettere maiuscole, lettere minuscole e numeri
-- La ricerca google-like con il parametro `q` deve cercare sia nel `title` che nel `body` del post
-
-
-
