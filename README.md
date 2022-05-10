@@ -29,9 +29,10 @@ qualità del codice, non la quantità:
 
 ---
 
-## Requisiti minimi
+## Requisiti
 
-Al minimo di tutto l'esercizio deve includere le 5 implementazioni elencate di seguito.
+Al minimo di tutto l'esercizio deve includere i punti da 1 a 5 elencati di seguito. Il punto 6 è a discrezione del
+candidato.
 
 ### 1) Docker setup
 
@@ -85,19 +86,18 @@ Il JWT deve avere un lifetime di 60 minuti.
 Implementare le API per la gestione degli utenti come documentato sullo swagger.
 
 I requisiti impongono che:
+
 - Non sono ammessi più utenti con la stessa email
 - La password dell'utente deve rispettare questi vincoli:
-  - lunghezza minima 6 caratteri
-  - deve contenere almeno 1 numero
-  - deve contenere almeno 1 carattere minuscolo
-  - deve contenere almeno 1 carattere maiuscolo
-  - deve contenere almeno 2 caratteri speciali tra questi: `,`, `.`, `:`, `;`, `-`, `_`, `$`, `%`, `&`, `(`, `)`, `=`
-  - non può contenere 2 caratteri identici consecutivi
-  - non può contenere la local-part dell'indirizzo email (la local-part è la stringa prima del carattere `@`)
+    - lunghezza minima 6 caratteri
+    - deve contenere almeno 1 numero
+    - deve contenere almeno 1 carattere minuscolo
+    - deve contenere almeno 1 carattere maiuscolo
+    - deve contenere almeno 2 caratteri speciali tra questi: `,`, `.`, `:`, `;`, `-`, `_`, `$`, `%`, `&`, `(`, `)`, `=`
+    - non può contenere 2 caratteri identici consecutivi
+    - non può contenere la local-part dell'indirizzo email (la local-part è la stringa prima del carattere `@`)
 
----
-
-## Nice to have
+### 6) CRUD + ricerca Posts (nice to have)
 
 Implementare la logica e le modifiche al DB necessarie per il CRUD + la ricerca dei posts.
 
