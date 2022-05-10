@@ -31,8 +31,8 @@ qualità del codice, non la quantità:
 
 ## Requisiti
 
-Al minimo di tutto l'esercizio deve includere i punti da 1 a 5 elencati di seguito. Il punto 6 è a discrezione del
-candidato.
+Al minimo di tutto l'esercizio deve includere i punti da 1 a 4 elencati di seguito. Tutti i punti successivi al 4 sono a
+discrezione del candidato
 
 ### 1) Docker setup
 
@@ -40,9 +40,22 @@ Includere una configurazione di `Docker` o `Docker Compose` e le istruzioni per 
 comandi da cli. L'esercizio verrà lanciato su una macchina vergine dove è presente solo Docker quindi è
 molto importante che la configurazione di Docker includa tutte le dipendenze necessarie (Webserver, DB, ecc)
 
-### 2) Migrazioni DB
+### 2) CRUD User
 
-Implementare migrazioni e fixtures per la gestione degli utenti.
+Implementare API per la gestione degli utenti come documentato sullo swagger.
+Implementare anche migrazioni + fixtures necessarie al setup del DB.
+
+I requisiti impongono che:
+
+- Non sono ammessi più utenti con la stessa email
+- La password dell'utente deve rispettare questi vincoli:
+    - lunghezza minima 6 caratteri
+    - deve contenere almeno 1 numero
+    - deve contenere almeno 1 carattere minuscolo
+    - deve contenere almeno 1 carattere maiuscolo
+    - deve contenere almeno 2 caratteri speciali tra questi: `,`, `.`, `:`, `;`, `-`, `_`, `$`, `%`, `&`, `(`, `)`, `=`
+    - non può contenere 2 caratteri identici consecutivi
+    - non può contenere la local-part dell'indirizzo email (la local-part è la stringa prima del carattere `@`)
 
 ### 3) Comando da CLI
 
@@ -81,27 +94,15 @@ Payload:
 
 Il JWT deve avere un lifetime di 60 minuti.
 
-### 5) CRUD User
-
-Implementare le API per la gestione degli utenti come documentato sullo swagger.
-
-I requisiti impongono che:
-
-- Non sono ammessi più utenti con la stessa email
-- La password dell'utente deve rispettare questi vincoli:
-    - lunghezza minima 6 caratteri
-    - deve contenere almeno 1 numero
-    - deve contenere almeno 1 carattere minuscolo
-    - deve contenere almeno 1 carattere maiuscolo
-    - deve contenere almeno 2 caratteri speciali tra questi: `,`, `.`, `:`, `;`, `-`, `_`, `$`, `%`, `&`, `(`, `)`, `=`
-    - non può contenere 2 caratteri identici consecutivi
-    - non può contenere la local-part dell'indirizzo email (la local-part è la stringa prima del carattere `@`)
-
-### 6) CRUD + ricerca Posts (nice to have)
+### 5) CRUD + ricerca Posts (nice to have)
 
 Implementare la logica e le modifiche al DB necessarie per il CRUD + la ricerca dei posts.
 
 La ricerca google-like con il parametro `q` deve cercare sia nel `title` che nel `body` del post.
+
+### 6) CRUD Commenti (nice to have)
+
+Implementare la logica e le modifiche al DB necessarie per il CRUD dei commenti.
 
 ---
 
