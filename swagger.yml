@@ -45,7 +45,7 @@ paths:
       security: []
   /users:
     get:
-      summary: Add user
+      summary: List users
       tags: []
       responses:
         '200':
@@ -90,7 +90,7 @@ paths:
                   value:
                     totalItems: 0
                     items: []
-      operationId: get-users
+      operationId: list-users
       parameters:
         - $ref: '#/components/parameters/Content-Type'
         - schema:
@@ -153,7 +153,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Update user
+      summary: Get user by email
       tags: []
       responses:
         '200':
@@ -164,13 +164,13 @@ paths:
                 $ref: '#/components/schemas/User'
         '404':
           description: Not Found
-      operationId: get-users-email
+      operationId: get-user-by-email
       parameters:
         - $ref: '#/components/parameters/Content-Type'
         - $ref: '#/components/parameters/Accept'
     put:
       summary: Update user
-      operationId: put-users-email
+      operationId: update-user-by-email
       responses:
         '200':
           description: OK
@@ -206,7 +206,7 @@ paths:
         - $ref: '#/components/parameters/Accept'
   /posts:
     get:
-      summary: Fetch posts
+      summary: List posts
       tags: []
       responses:
         '200':
@@ -242,7 +242,7 @@ paths:
                         tags:
                           - nodejs
                           - programming
-      operationId: get-posts
+      operationId: list-posts
       parameters:
         - $ref: '#/components/parameters/Content-Type'
         - schema:
